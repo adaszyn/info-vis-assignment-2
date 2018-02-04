@@ -1,12 +1,9 @@
 import * as React from 'react';
-import {Country, CountryModel} from "../../models/Country";
+import {CountryModel} from "../../models/Country";
 import {observer} from "mobx-react";
-import * as worldMap from '../../assets/world.svg'
-import './Map.css'
-import {AllCountriesList} from "../../contants/Countries";
 import {ConfigurationModel} from "../../models/Configuration";
 import {countriesPaths} from "./CountriesPaths";
-import {ReactElement} from "react";
+import './Map.css'
 
 interface MapProps {
     countries: Array<CountryModel>;
@@ -15,29 +12,13 @@ interface MapProps {
 
 @observer
 export class Map extends React.Component<MapProps, any> {
-    private objectElement: HTMLObjectElement;
-    private svgElement: HTMLElement;
-
     constructor(props) {
         super(props);
     }
-
-    // private onMapClick = (event) => {
-    //     const id: string = event.target.id;
-    //     const [country] = this.props.countries.filter(country => country.code === id)
-    //     this.props.configuration.selectCountry(country)
-    // }
-    // public onMapObjectLoaded = () => {
-    //     this.svgElement = this.objectElement.contentDocument.getElementById('world-map-image-svg')
-    //     this.svgElement.addEventListener('click', this.onMapClick);
-    // }
-    // public componentWillUnmount() {
-    //     this.svgElement.removeEventListener('click', this.onMapClick);
-    // }
-
     private onCountryClick = ({target: {id}}) => {
         const [country] = this.props.countries.filter(country => country.code === id)
         country.fetchDescription()
+        country.loadStatistics()
         this.props.configuration.selectCountry(country)
 
     }
@@ -55,18 +36,6 @@ export class Map extends React.Component<MapProps, any> {
             }
         })
     }
-
-    // mapCountriesToComponents (countries) {
-    //     const selectedCountries = this.props.configuration.getSelectedCountry()
-    //     return countries.map(country => {
-    //         if (country.props.id === selectedCountry.code) {
-    //             country.props.style.fill = 'red'
-    //         } else {
-    //             country.props.style.fill = 'blue'
-    //         }
-    //         return country
-    //     })
-    // }
 
     render() {
         return (
