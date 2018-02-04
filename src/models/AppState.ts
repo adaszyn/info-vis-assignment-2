@@ -6,6 +6,7 @@ import {AllCountriesList} from "../contants/Countries";
 export class AppState {
     @observable countries: Array<CountryModel> = [];
     @observable configuration: ConfigurationModel = new ConfigurationModel();
+
     constructor() {
         this.countries = AllCountriesList.map(countryEntry => new CountryModel(countryEntry))
     }
