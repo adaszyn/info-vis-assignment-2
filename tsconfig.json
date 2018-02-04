@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "strictNullChecks": true,
+      "removeComments": true,
+      "experimentalDecorators": true,
+      "jsx": "react",
+      "outDir": "dist"
+    },
+  "files": [
+    "src/types.d.ts",
+    "node_modules/@types/es6-shim"
+  ],
+  "exclude": [
+      "node_modules",
+      "static"
+    ]
+  }
