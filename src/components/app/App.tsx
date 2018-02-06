@@ -13,6 +13,7 @@ export class App extends React.Component<{state: AppState}, {}> {
             <div className='container'>
                 <div className='left-pane'>
                     <Map configuration={this.props.state.configuration}
+                         countriesWithStatisticsCodes={this.props.state.countriesWithStatisticsCodes}
                          countries={this.props.state.countries}/>
                 </div>
                 <div className='right-pane'>

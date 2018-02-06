@@ -1,6 +1,7 @@
 import {observable} from "mobx";
 import axios from 'axios'
 import * as statistics from '../data/statistics.json'
+import {Statistics, StatisticsModel} from "./StatisticsModel";
 
 export interface Country {
     name: string;
@@ -13,15 +14,14 @@ export class CountryModel implements Country{
     @observable population: number;
     @observable area: number;
     @observable currency: string;
-    @observable statistics: any;
+    @observable statistics: StatisticsModel;
 
     constructor(country: Country) {
         this.code = country.code;
         this.name = country.name;
+        this.statistics = new StatisticsModel(statistics[this.code])
     }
-    loadStatistics () {
-        this.statistics = statistics[this.code]
-    }
+
     async fetchDescription() {
         if (this.population) {
             return

@@ -3,6 +3,7 @@ import {ConfigurationModel} from "../../models/Configuration";
 import {observer} from "mobx-react";
 import * as data from '../../data/statistics.json'
 import {BarChart} from "../bar-chart/BarChart";
+import {Graphs} from "../graphs/Graphs";
 interface VariablesSelectionProps {
     configuration: ConfigurationModel
 }
@@ -12,14 +13,14 @@ export class VariablesSelection extends React.Component<VariablesSelectionProps,
     public render () {
         const selectedCountry = this.props.configuration.selectedCountry
         if (!selectedCountry) {
-            return null
+            return "No Selected Country"
         }
         return (
             <div>
                 <p>POPULATION: {selectedCountry.population}</p>
                 <p>AREA: {selectedCountry.area}</p>
                 <p>CURRENCY: {selectedCountry.currency}</p>
-                <p>CURRENCY: {JSON.stringify(selectedCountry.statistics)}</p>
+                <Graphs data={selectedCountry.statistics}/>
             </div>
         )
     }

@@ -1,13 +1,15 @@
 import * as React from 'react';
-import {CountryModel} from "../../models/Country";
+import {Country, CountryModel} from "../../models/Country";
 import {observer} from "mobx-react";
 import {ConfigurationModel} from "../../models/Configuration";
 import {countriesPaths} from "./CountriesPaths";
 import './Map.css'
+import {ReactElement} from "react";
 
 interface MapProps {
     countries: Array<CountryModel>;
-    configuration: ConfigurationModel
+    configuration: ConfigurationModel;
+    countriesWithStatisticsCodes: Set<string>;
 }
 
 @observer
@@ -18,20 +20,29 @@ export class Map extends React.Component<MapProps, any> {
     private onCountryClick = ({target: {id}}) => {
         const [country] = this.props.countries.filter(country => country.code === id)
         country.fetchDescription()
-        country.loadStatistics()
         this.props.configuration.selectCountry(country)
 
     }
-    private getStyledCountries() {
+
+    private getCountryColor (country: ReactElement<any>):string {
         const selectedCountry = this.props.configuration.getSelectedCountry()
+        if (!this.props.countriesWithStatisticsCodes.has(country.props.id)) {
+            return "lightgrey"
+        }
+        if (!selectedCountry || selectedCountry.code !== country.props.id) {
+            return 'grey'
+        }
+        return 'red'
+    }
+
+    private getStyledCountries() {
         return countriesPaths.map(country => {
             return {
                 ...country,
                 props: {
                     ...country.props,
                     onClick: this.onCountryClick,
-                    fill: selectedCountry && selectedCountry.code === country.props.id
-                        ? 'red' : 'grey'
+                    fill: this.getCountryColor(country)
                 }
             }
         })

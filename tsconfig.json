@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "target": "es5",
-      "strictNullChecks": true,
+      "strictNullChecks": false,
       "removeComments": true,
       "experimentalDecorators": true,
       "jsx": "react",
