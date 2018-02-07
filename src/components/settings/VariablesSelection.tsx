@@ -1,26 +1,33 @@
 import * as React from 'react'
-import {ConfigurationModel} from "../../models/Configuration";
+import {VariableModel} from "../../models/VariableModel";
 import {observer} from "mobx-react";
-import * as data from '../../data/statistics.json'
-import {BarChart} from "../bar-chart/BarChart";
-import {Graphs} from "../graphs/Graphs";
+import {ConfigurationModel} from "../../models/Configuration";
+
 interface VariablesSelectionProps {
-    configuration: ConfigurationModel
+    variables: Array<VariableModel>;
+    configuration: ConfigurationModel;
+}
+
+interface VariablesSelectionState {
 }
 
 @observer
-export class VariablesSelection extends React.Component<VariablesSelectionProps, any> {
+export class VariablesSelection extends React.Component<VariablesSelectionProps, VariablesSelectionState> {
+
+    private renderButton = (variable: VariableModel) => {
+        const className = this.props.configuration.selectedVariable === variable
+            ? 'button selected'
+            : 'button'
+        return <div className={className}
+                    onClick={() => this.props.configuration.selectedVariable = variable}>
+            { variable.label }
+        </div>
+
+    }
     public render () {
-        const selectedCountry = this.props.configuration.selectedCountry
-        if (!selectedCountry) {
-            return "No Selected Country"
-        }
         return (
             <div>
-                <p>POPULATION: {selectedCountry.population}</p>
-                <p>AREA: {selectedCountry.area}</p>
-                <p>CURRENCY: {selectedCountry.currency}</p>
-                <Graphs data={selectedCountry.statistics}/>
+                { this.props.variables.map(this.renderButton)}
             </div>
         )
     }

@@ -1,0 +1,8 @@
+.button {
+    border: 1px solid #535353;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+.button.selected {
+    background-color: aquamarine;
+}
