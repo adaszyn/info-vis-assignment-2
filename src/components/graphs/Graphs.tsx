@@ -28,6 +28,26 @@ export class Graphs extends React.Component<GraphsProps, GraphsState> {
                     baseColor={StatisticsColors.TRADITION_HIGH_TECH}
                     label="Tradition vs. High Tech"
                     data={this.props.data.traditionHighTech}/>
+                <BarChart
+                    baseColor={StatisticsColors.FINANCIAL_SATISFACTION}
+                    label="Financial Satisfaction"
+                    data={this.props.data.financialSatisfaction}/>
+                <BarChart
+                    baseColor={StatisticsColors.IMMIGRATION}
+                    label="Immigration"
+                    data={this.props.data.immigration}/>
+                <BarChart
+                    baseColor={StatisticsColors.RELIGION_IMPORTANCE}
+                    label="Religion Importance"
+                    data={this.props.data.religionImportance}/>
+                <BarChart
+                    baseColor={StatisticsColors.LIFE_SATISFACTION}
+                    label="Life satisfaction"
+                    data={this.props.data.lifeSatisfaction}/>
+                <BarChart
+                    baseColor={StatisticsColors.TRUST_IN_PEOPLE}
+                    label="Trust in people."
+                    data={this.props.data.trustInPeople}/>
             </div>
         )
     }

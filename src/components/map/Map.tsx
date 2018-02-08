@@ -22,6 +22,9 @@ export class Map extends React.Component<MapProps, any> {
         this.chromaticScale = scaleLinear()
     }
     private onCountryClick = ({target: {id}}) => {
+        if (!this.doesDataExistForCountry(id)) {
+            return;
+        }
         const [country] = this.props.countries.filter(country => country.code === id)
         country.fetchDescription()
         this.props.configuration.selectCountry(country)
@@ -41,7 +44,7 @@ export class Map extends React.Component<MapProps, any> {
             .map(country => country.statistics.getAggregatedValue(selectedVariable.key))
         this.chromaticScale = this.chromaticScale
             .domain([min(allValues), max(allValues)])
-            .range([0.3, 1.0])
+            .range([0.05, 1.0])
     }
 
     public componentWillReact(props) {
@@ -53,6 +56,9 @@ export class Map extends React.Component<MapProps, any> {
         const country = this.getCountryModelByCode(countryElement.props.id)
         if (!country) {
             return "lightgrey"
+        }
+        if (country.code === "DE") {
+            console.log(country.code, (country.statistics as any)[selectedVariable.key]);
         }
         const aggregatedValue = country.statistics.getAggregatedValue(selectedVariable.key)
         return `rgba(255, 0, 0, ${this.chromaticScale(aggregatedValue)})`;
@@ -74,15 +80,22 @@ export class Map extends React.Component<MapProps, any> {
 
     private getStyledCountries() {
         return countriesPaths.map(country => {
+            const hasData = this.doesDataExistForCountry(country.props.id);
             return {
                 ...country,
                 props: {
                     ...country.props,
                     onClick: this.onCountryClick,
+                    style: {
+                        cursor: hasData ? 'pointer' : 'default'
+                    },
                     fill: this.getCountryColor(country)
                 }
             }
         })
+    }
+    private doesDataExistForCountry(countryId: string): boolean {
+        return this.props.countriesWithStatisticsCodes.has(countryId)
     }
 
     render() {

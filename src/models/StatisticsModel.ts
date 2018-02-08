@@ -43,8 +43,11 @@ export class StatisticsModel implements Statistics {
         let numOfEntries: number = 0;
         for (const label of Array.from(data.keys())) {
             const value = data.get(label)
-            numOfEntries = numOfEntries + 1;
-            sum = sum + value;
+            if (value <= 0)  {
+                continue;
+            }
+            numOfEntries = numOfEntries + value;
+            sum = sum + parseInt(label) * value;
         }
         return sum / numOfEntries;
     }
