@@ -20,16 +20,21 @@ export class AppState {
         for (let country of this.countries) {
             country.loadWave(wave)
         }
+        this.configuration.selectedCountries = [];
         const countriesWithStatistics = AllCountriesList
             .filter(this.isInStatisticsModel)
+        console.log(countriesWithStatistics);
         this.countries = countriesWithStatistics
-            .map(countryEntry => new CountryModel(countryEntry))
+            .map(countryEntry => {
+                return new CountryModel(countryEntry, this.configuration.selectedWave)
+            })
         this.countriesWithStatisticsCodes = new Set(
             countriesWithStatistics.map(country => country.code)
         )
     }
 
     private isInStatisticsModel = (countryObject: Country): boolean => {
+        // return countryObject.code === "PL" || countryObject.code === "RU"
         switch (this.configuration.selectedWave) {
             case Wave.Wave4:
                 return wave4statistics.hasOwnProperty(countryObject.code)
@@ -39,6 +44,6 @@ export class AppState {
                 return wave6statistics.hasOwnProperty(countryObject.code)
 
         }
-        // return  countryObject.code === 'RU' || countryObject.code === 'PL'
+        return  countryObject.code === 'RU' || countryObject.code === 'PL'
     };
 }

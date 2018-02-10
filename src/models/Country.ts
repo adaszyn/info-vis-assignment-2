@@ -24,10 +24,10 @@ export class CountryModel implements Country{
     @observable flagUrl: string;
     @observable statistics: StatisticsModel;
 
-    constructor(country: Country) {
+    constructor(country: Country, wave: Wave) {
         this.code = country.code;
         this.name = country.name;
-        this.loadWave(Wave.Wave4)
+        this.loadWave(wave)
     }
 
 
