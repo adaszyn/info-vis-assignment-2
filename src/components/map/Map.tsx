@@ -65,11 +65,11 @@ export class Map extends React.Component<MapProps, any> {
         if (this.props.configuration.selectedVariable) {
             return this.getCountryColorByVariable(country)
         }
-        const selectedCountry = this.props.configuration.getSelectedCountry()
+        const selectedCountry = this.props.configuration.getSelectedCountries()
         if (!this.props.countriesWithStatisticsCodes.has(country.props.id)) {
             return "lightgrey"
         }
-        if (!selectedCountry || selectedCountry.code !== country.props.id) {
+        if (!selectedCountry || !this.props.configuration.isCountrySelectedById(country.props.id)) {
             return 'grey'
         }
         return 'red'

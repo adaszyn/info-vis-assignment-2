@@ -11,7 +11,7 @@ import {ParallelCoordChart} from "../parallel-coord-chart/ParallelCoordChart";
 @observer
 export class App extends React.Component<{state: AppState}, {}> {
     private onCountrySelect = (country: CountryModel) => {
-        this.props.state.configuration.selectedCountry = country;
+        this.props.state.configuration.selectCountry(country);
     }
     render() {
         return (
@@ -28,7 +28,7 @@ export class App extends React.Component<{state: AppState}, {}> {
                     <ParallelCoordChart
                         onCountrySelect={this.onCountrySelect}
                         countries={this.props.state.countries}
-                        selectedCountry={this.props.state.configuration.selectedCountry}
+                        configuration={this.props.state.configuration}
                         variables={this.props.state.configuration.variables}
                     />
                 </div>

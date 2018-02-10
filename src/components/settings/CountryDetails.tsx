@@ -13,10 +13,11 @@ interface VariablesSelectionProps {
 @observer
 export class CountryDetails extends React.Component<VariablesSelectionProps, any> {
     public render() {
-        const selectedCountry = this.props.configuration.selectedCountry
-        if (!selectedCountry) {
-            return "No Selected Country"
+        const selectedCountries = this.props.configuration.selectedCountries
+        if (selectedCountries.length !== 1) {
+            return "Select one country to see more details";
         }
+        const selectedCountry = selectedCountries[0];
         const flagStyle = {
             backgroundImage: `url(${selectedCountry.flagUrl})`
         }

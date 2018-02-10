@@ -4,7 +4,7 @@ import {VariableModel} from "./VariableModel";
 
 export class ConfigurationModel {
     @observable
-    public selectedCountry: CountryModel;
+    public selectedCountries: Array<CountryModel> = [];
     @observable
     public selectedVariable: VariableModel;
     public variables: Array<VariableModel> =  [
@@ -19,10 +19,21 @@ export class ConfigurationModel {
     ]
 
     public selectCountry(country: CountryModel) {
-        this.selectedCountry = country;
+        this.selectedCountries.push(country)
+    }
+    public unselectCountry(country: CountryModel) {
+        const index = this.selectedCountries.indexOf(country)
+        this.selectedCountries.splice(index, 1)
     }
 
-    public getSelectedCountry(): Country {
-        return this.selectedCountry
+    public getSelectedCountries(): Array<Country> {
+        return this.selectedCountries
+    }
+    public isCountrySelected(country: CountryModel):boolean {
+        return this.selectedCountries.indexOf(country) > -1
+    }
+    public isCountrySelectedById(countryId: string):boolean {
+        return this.selectedCountries
+            .some(country => country.code === countryId)
     }
 }

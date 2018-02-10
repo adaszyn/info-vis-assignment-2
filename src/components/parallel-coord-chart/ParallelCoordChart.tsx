@@ -4,6 +4,7 @@ import {CountryModel} from "../../models/Country";
 import {VariableModel} from "../../models/VariableModel";
 import {max, min} from "d3-array";
 import {observer} from "mobx-react";
+import {ConfigurationModel} from "../../models/Configuration";
 const SVG_WIDTH = 800;
 const SVG_HEIGHT = 400;
 
@@ -11,7 +12,7 @@ interface ParallelCoordChartProps {
     countries: Array<CountryModel>;
     variables: Array<VariableModel>;
     onCountrySelect: (country: CountryModel) => void;
-    selectedCountry: CountryModel;
+    configuration: ConfigurationModel;
 }
 
 interface ParallelCoordChartState {
@@ -60,7 +61,7 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
                 )
             }
             return <polyline
-                style={{fill: 'none', stroke: country === this.props.selectedCountry ? 'darkred' : 'darkgrey', strokeWidth:1}}
+                style={{fill: 'none', stroke: this.props.configuration.isCountrySelected(country) ? 'darkred' : 'darkgrey', strokeWidth:1}}
                 key={`polyline-${country.code}`}
                 onClick={() => this.onCountrySelect(country)}
                 points={this.pointsToString(points)}
