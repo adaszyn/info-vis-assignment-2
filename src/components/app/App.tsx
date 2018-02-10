@@ -7,8 +7,12 @@ import {CountryDetails} from "../settings/CountryDetails";
 import DevTools from "mobx-react-devtools";
 import './App.css'
 import {VariablesSelection} from "../settings/VariablesSelection";
+import {ParallelCoordChart} from "../parallel-coord-chart/ParallelCoordChart";
 @observer
 export class App extends React.Component<{state: AppState}, {}> {
+    private onCountrySelect = (country: CountryModel) => {
+        this.props.state.configuration.selectedCountry = country;
+    }
     render() {
         return (
             <div className='container'>
@@ -21,6 +25,14 @@ export class App extends React.Component<{state: AppState}, {}> {
                 </div>
                 <div className='right-pane'>
                     <CountryDetails configuration={this.props.state.configuration} />
+                </div>
+                <div className='bottom-pane'>
+                    <ParallelCoordChart
+                        onCountrySelect={this.onCountrySelect}
+                        countries={this.props.state.countries}
+                        selectedCountry={this.props.state.configuration.selectedCountry}
+                        variables={this.props.state.configuration.variables}
+                    />
                 </div>
                 <DevTools />
             </div>

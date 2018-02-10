@@ -57,9 +57,6 @@ export class Map extends React.Component<MapProps, any> {
         if (!country) {
             return "lightgrey"
         }
-        if (country.code === "DE") {
-            console.log(country.code, (country.statistics as any)[selectedVariable.key]);
-        }
         const aggregatedValue = country.statistics.getAggregatedValue(selectedVariable.key)
         return `rgba(255, 0, 0, ${this.chromaticScale(aggregatedValue)})`;
     }
