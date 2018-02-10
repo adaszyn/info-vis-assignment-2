@@ -1,4 +1,4 @@
-import {observable} from "mobx";
+import {observable, toJS} from "mobx";
 import {Country, CountryModel} from "./Country";
 import {VariableModel} from "./VariableModel";
 
@@ -28,6 +28,13 @@ export class ConfigurationModel {
 
     public selectCountry(country: CountryModel) {
         this.selectedCountries.push(country)
+    }
+    public toggleCountry(country: CountryModel) {
+        if (this.isCountrySelected(country)) {
+            this.unselectCountry(country)
+        } else {
+            this.selectCountry(country)
+        }
     }
     public unselectCountry(country: CountryModel) {
         const index = this.selectedCountries.indexOf(country)
