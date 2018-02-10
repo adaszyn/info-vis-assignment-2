@@ -1,5 +1,5 @@
 import {observable, toJS} from "mobx";
-import {Country, CountryModel} from "./Country";
+import {Country, CountryModel, Wave} from "./Country";
 import {VariableModel} from "./VariableModel";
 
 export class ConfigurationModel {
@@ -7,14 +7,8 @@ export class ConfigurationModel {
     public selectedCountries: Array<CountryModel> = [];
     @observable
     public selectedVariable: VariableModel;
-    // religion_importance: header6.indexOf('V9'),
-    // family_important: header6.indexOf('V4'),
-    // friends_important: header6.indexOf('V5'),
-    // politics_important: header6.indexOf('V7'),
-    // work_important: header6.indexOf('V8'),
-    // health_state: header6.indexOf('V11'),
-    // proud_nationality: header6.indexOf('V211'),
-    // political_party: header6.indexOf('V29'),
+    @observable selectedWave: Wave;
+
     public variables: Array<VariableModel> =  [
         new VariableModel('politicsImportant', 'Politics Important'),
         new VariableModel('religionImportance', 'Religion Importance'),

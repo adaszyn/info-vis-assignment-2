@@ -27,6 +27,7 @@ export class Map extends React.Component<MapProps, any> {
         }
         const [country] = this.props.countries.filter(country => country.code === id)
         country.fetchDescription()
+        this.props.configuration.selectedVariable = null;
         this.props.configuration.toggleCountry(country)
 
     }

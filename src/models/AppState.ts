@@ -9,11 +9,17 @@ import * as wave6statistics from '../data/wave6.output.json'
 export class AppState {
     @observable countries: Array<CountryModel> = [];
     @observable configuration: ConfigurationModel = new ConfigurationModel();
-    @observable selectedWave: Wave;
     countriesWithStatisticsCodes: Set<string>;
 
     constructor() {
         this.loadWave(Wave.Wave4);
+    }
+
+    public loadWave(wave: Wave) {
+        this.configuration.selectedWave = wave;
+        for (let country of this.countries) {
+            country.loadWave(wave)
+        }
         const countriesWithStatistics = AllCountriesList
             .filter(this.isInStatisticsModel)
         this.countries = countriesWithStatistics
@@ -23,15 +29,8 @@ export class AppState {
         )
     }
 
-    public loadWave(wave: Wave) {
-        this.selectedWave = wave;
-        for (let country of this.countries) {
-            country.loadWave(wave)
-        }
-    }
-
     private isInStatisticsModel = (countryObject: Country): boolean => {
-        switch (this.selectedWave) {
+        switch (this.configuration.selectedWave) {
             case Wave.Wave4:
                 return wave4statistics.hasOwnProperty(countryObject.code)
             case Wave.Wave5:

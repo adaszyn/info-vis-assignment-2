@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {observer} from "mobx-react";
-import {Country, CountryModel} from "../../models/Country";
+import {Country, CountryModel, Wave} from "../../models/Country";
 import {AppState} from "../../models/AppState";
 import {Map} from "../map/Map";
 import {CountryDetails} from "../settings/CountryDetails";
@@ -13,6 +13,9 @@ export class App extends React.Component<{state: AppState}, {}> {
     private onCountrySelect = (country: CountryModel) => {
         this.props.state.configuration.selectCountry(country);
     }
+    private onWaveSelect = (wave: Wave):void => {
+        this.props.state.loadWave(wave)
+    }
     render() {
         return (
             <div className='container'>
@@ -21,6 +24,7 @@ export class App extends React.Component<{state: AppState}, {}> {
                          countriesWithStatisticsCodes={this.props.state.countriesWithStatisticsCodes}
                          countries={this.props.state.countries}/>
                     <VariablesSelection  configuration={this.props.state.configuration}
+                                         onWaveChange={this.onWaveSelect}
                                          variables={this.props.state.configuration.variables}/>
 
                 </div>
