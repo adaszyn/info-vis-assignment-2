@@ -20,7 +20,7 @@ export class AppState {
     }
 
     private isInStatisticsModel(countryObject: Country): boolean {
-        return statistics.hasOwnProperty(countryObject.code)
-        // return countryObject.code === 'DE' || countryObject.code === 'RU' || countryObject.code === 'PL'
+        // return statistics.hasOwnProperty(countryObject.code)
+        return  countryObject.code === 'RU' || countryObject.code === 'PL'
     };
 }

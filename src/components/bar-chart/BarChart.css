@@ -5,6 +5,9 @@
 .bar-graph {
 
 }
-.bar-graph__text {
-    text-anchor: middle;
+.bar-graph__scale-label {
+    font-size: 11px;
+}
+.bar-graph__bottom-label {
+    font-size: 11px;
 }

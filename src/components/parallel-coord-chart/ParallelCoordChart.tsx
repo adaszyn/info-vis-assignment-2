@@ -1,11 +1,9 @@
 import * as React from 'react'
-import {StatisticsModel} from "../../models/StatisticsModel";
 import {scaleLinear} from 'd3-scale';
-import {Country, CountryModel} from "../../models/Country";
+import {CountryModel} from "../../models/Country";
 import {VariableModel} from "../../models/VariableModel";
 import {max, min} from "d3-array";
 import {observer} from "mobx-react";
-import * as d3 from 'd3'
 const SVG_WIDTH = 800;
 const SVG_HEIGHT = 400;
 
@@ -33,7 +31,6 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
             const allValues = this.props.countries.map(
                 country => country.statistics.getAggregatedValue(variableKey)
             )
-            console.log(variableKey, this.scales.get(variableKey));
             const newScale = this.scales.get(variableKey)
                 .scale
                 .domain([min(allValues), max(allValues)])

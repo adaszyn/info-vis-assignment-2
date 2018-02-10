@@ -1,16 +1,20 @@
 import * as React from 'react'
 import {scaleLinear} from 'd3'
 import {CategoricalNumeralValues} from "../../models/StatisticsModel";
-import {ScaleLinear} from "d3-scale";
-import {max, min} from "d3-array";
+import {ScaleLinear, scaleQuantize} from "d3-scale";
+import {max, min, range} from "d3-array";
 import "./BarChart.css"
 
 const BAR_PADDING = 10;
-const SVG_HEIGHT = 200;
-const SVG_WIDTH = 300;
+const SVG_HEIGHT = 220;
+const SVG_WIDTH = 340;
+const SVG_LABEL_MARGIN = 40;
+const TOP_MARGIN = 20;
 const BOTTOM_PADDING = 40;
 const MAX_BAR_WIDTH = 40;
-const MIN_BAR_WIDTH = 10;
+
+const SVG_WORKING_WIDTH = SVG_WIDTH - SVG_LABEL_MARGIN;
+const SVG_WORKING_HEIGHT = SVG_HEIGHT - TOP_MARGIN;
 
 interface BarChartProps {
     data: CategoricalNumeralValues;
@@ -36,13 +40,13 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
         const values = Array.from(newProps.data.values())
 
         this.scale = scaleLinear()
-            .domain([min(values) || 0, max(values) || 0])
-            .range([0, SVG_HEIGHT - BOTTOM_PADDING])
+            .domain([0, max(values) || 0])
+            .range([0, SVG_WORKING_HEIGHT - BOTTOM_PADDING])
 
     }
     private adjustBarWidth(newProps:BarChartProps) {
         const numberOfBars:number = newProps.data.size || 1
-        const barWidth = SVG_WIDTH / numberOfBars - BAR_PADDING;
+        const barWidth = SVG_WORKING_WIDTH / numberOfBars - BAR_PADDING;
         this.barWidth = this.cap(barWidth, 0, MAX_BAR_WIDTH)
     }
     componentWillUpdate(newProps: BarChartProps) {
@@ -54,7 +58,7 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
             <rect
                 height={this.scale(value)}
                 width={this.barWidth}
-                style={{fill: this.props.baseColor}}
+                style={{fill: this.props.baseColor, zIndex: 3}}
                 x={index * (this.barWidth + BAR_PADDING)}
                 y={SVG_HEIGHT - BOTTOM_PADDING - this.scale(value)}
             />
@@ -62,6 +66,7 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
                   textAnchor="middle"
                   alignmentBaseline="central"
                   width={this.barWidth }
+                  className="bar-graph__bottom-label"
                   y={SVG_HEIGHT - BOTTOM_PADDING / 2}>
                 {label}
             </text>
@@ -72,10 +77,45 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
         this.adjustBarWidth(this.props)
 
     }
+
+    renderScale () {
+        const values = Array.from(this.props.data.values());
+        const maxStep = Math.ceil(max(values)/100)*100;
+        const step = Math.ceil((maxStep - 100) / values.length /10)*10
+        const steps = range(0, maxStep, step)
+        return <g>
+            <line
+                x1={1}
+                x2={1}
+                y1={0}
+                y2={SVG_HEIGHT - BOTTOM_PADDING}
+                style={{strokeWidth: 2, stroke: "darkgrey"}}
+            />
+            {steps.map((step) => {
+
+                return <g>
+                    <line
+                        x1={0}
+                        x2={SVG_WORKING_WIDTH}
+                        y1={SVG_HEIGHT - BOTTOM_PADDING - this.scale(step)}
+                        y2={SVG_HEIGHT - BOTTOM_PADDING - this.scale(step)}
+                        style={{strokeWidth: 1, stroke: "darkgrey"}}
+                    />
+                    <text
+                        className="bar-graph__scale-label"
+                        x={SVG_WORKING_WIDTH}
+                        y={SVG_HEIGHT - BOTTOM_PADDING - this.scale(step)}>
+                        {step}
+                    </text>
+                </g>
+            })}
+        </g>
+    }
     public render () {
         return (
             <div className="graph-container">
                 <svg className='bar-graph' height={SVG_HEIGHT} width={SVG_WIDTH}>
+                    {this.renderScale()}
                     {Array.from(this.props.data.entries()).map(this.renderBar)}
                 </svg>
                 {this.props.label}
