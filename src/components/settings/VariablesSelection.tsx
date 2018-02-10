@@ -2,6 +2,7 @@ import * as React from 'react'
 import {VariableModel} from "../../models/VariableModel";
 import {observer} from "mobx-react";
 import {ConfigurationModel} from "../../models/Configuration";
+import "./VariablesSelection.css"
 
 interface VariablesSelectionProps {
     variables: Array<VariableModel>;
@@ -26,7 +27,7 @@ export class VariablesSelection extends React.Component<VariablesSelectionProps,
     }
     public render () {
         return (
-            <div>
+            <div className="variables-selection-buttons">
                 { this.props.variables.map(this.renderButton)}
             </div>
         )

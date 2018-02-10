@@ -1,8 +1,21 @@
 .button {
-    border: 1px solid #535353;
-    padding: 6px 10px;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    height: 29px;
+    padding: 9px 4px;
+    background-color: #416dea;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin: 4px;
+    transition: 0.1s background-color linear;
 }
+.button:hover {
+    background-color: #3b61c1;
+}
+
 .button.selected {
-    background-color: aquamarine;
 }

@@ -22,17 +22,19 @@ export class App extends React.Component<{state: AppState}, {}> {
                          countries={this.props.state.countries}/>
                     <VariablesSelection  configuration={this.props.state.configuration}
                                          variables={this.props.state.configuration.variables}/>
+
                 </div>
                 <div className='right-pane'>
-                    <CountryDetails configuration={this.props.state.configuration} />
-                </div>
-                <div className='bottom-pane'>
                     <ParallelCoordChart
                         onCountrySelect={this.onCountrySelect}
                         countries={this.props.state.countries}
                         selectedCountry={this.props.state.configuration.selectedCountry}
                         variables={this.props.state.configuration.variables}
                     />
+                </div>
+                <div className='bottom-pane'>
+                    <CountryDetails configuration={this.props.state.configuration} />
+
                 </div>
                 <DevTools />
             </div>

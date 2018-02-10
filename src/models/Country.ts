@@ -14,6 +14,7 @@ export class CountryModel implements Country{
     @observable population: number;
     @observable area: number;
     @observable currency: string;
+    @observable flagUrl: string;
     @observable statistics: StatisticsModel;
 
     constructor(country: Country) {
@@ -31,6 +32,7 @@ export class CountryModel implements Country{
             this.population = response.data.population;
             this.area = response.data.area;
             this.currency = response.data.currencies[0].name;
+            this.flagUrl = response.data.flag;
         } catch (error) {
             console.error(error)
         }

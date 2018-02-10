@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import {StatisticsModel} from "../../models/StatisticsModel";
 import {BarChart} from "../bar-chart/BarChart";
 import {StatisticsColors} from "../../contants/StatiscticsColors";
+import "./Graphs.css";
 
 interface GraphsProps {
     data: StatisticsModel
@@ -15,7 +16,7 @@ interface GraphsState {
 export class Graphs extends React.Component<GraphsProps, GraphsState> {
     public render () {
         return (
-            <div>
+            <div className="graphs-container">
                 <BarChart
                     baseColor={StatisticsColors.EDUCATION}
                     label="Education"

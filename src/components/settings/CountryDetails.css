@@ -1,0 +1,16 @@
+.country-details {
+}
+.country-flag {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid lightgrey;
+
+}
+.country-details__right-pane {
+}
+.country-details__right-pane {
+
+}
