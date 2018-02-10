@@ -20,23 +20,23 @@ export class Graphs extends React.Component<GraphsProps, GraphsState> {
                 <BarChart
                     baseColor={StatisticsColors.EDUCATION}
                     label="Education"
-                    data={this.props.data.education}/>
+                    data={this.props.data.proudNationality}/>
                 <BarChart
                     baseColor={StatisticsColors.HEALTH_STATE}
                     label="Health State"
-                    data={this.props.data.healthState}/>
+                    data={this.props.data.politicalParty}/>
                 <BarChart
                     baseColor={StatisticsColors.TRADITION_HIGH_TECH}
                     label="Tradition vs. High Tech"
-                    data={this.props.data.traditionHighTech}/>
+                    data={this.props.data.politicalParty}/>
                 <BarChart
                     baseColor={StatisticsColors.FINANCIAL_SATISFACTION}
                     label="Financial Satisfaction"
-                    data={this.props.data.financialSatisfaction}/>
+                    data={this.props.data.friendsImportant}/>
                 <BarChart
                     baseColor={StatisticsColors.IMMIGRATION}
                     label="Immigration"
-                    data={this.props.data.immigration}/>
+                    data={this.props.data.politicsImportant}/>
                 <BarChart
                     baseColor={StatisticsColors.RELIGION_IMPORTANCE}
                     label="Religion Importance"
@@ -44,11 +44,11 @@ export class Graphs extends React.Component<GraphsProps, GraphsState> {
                 <BarChart
                     baseColor={StatisticsColors.LIFE_SATISFACTION}
                     label="Life satisfaction"
-                    data={this.props.data.lifeSatisfaction}/>
+                    data={this.props.data.familyImportant}/>
                 <BarChart
                     baseColor={StatisticsColors.TRUST_IN_PEOPLE}
                     label="Trust in people."
-                    data={this.props.data.trustInPeople}/>
+                    data={this.props.data.workImportant}/>
             </div>
         )
     }

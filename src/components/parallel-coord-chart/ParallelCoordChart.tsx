@@ -21,10 +21,8 @@ interface ParallelCoordChartState {
 @observer
 export class ParallelCoordChart extends React.Component<ParallelCoordChartProps, ParallelCoordChartState> {
     private scales:  Map<string, any>;
-    private immigrationScale: any;
     constructor (props) {
         super(props);
-        this.immigrationScale = null;
         this.scales = new Map(this.props.variables.map(variable => [variable.key, {scale: scaleLinear()}]) as ([string, any]))
     }
     public recalculateScales () {
@@ -101,7 +99,6 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
     componentDidUpdate() {
     }
     public render () {
-        const data = this.props.countries;
         this.recalculateScales()
         return (
             <div>
@@ -110,7 +107,6 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
                      height={SVG_HEIGHT}
                      viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
                 >
-                    <g ref={scale => this.immigrationScale = scale} />
                     {this.renderAxes()}
                     {this.renderPolylines()}
                 </svg>

@@ -7,15 +7,23 @@ export class ConfigurationModel {
     public selectedCountries: Array<CountryModel> = [];
     @observable
     public selectedVariable: VariableModel;
+    // religion_importance: header6.indexOf('V9'),
+    // family_important: header6.indexOf('V4'),
+    // friends_important: header6.indexOf('V5'),
+    // politics_important: header6.indexOf('V7'),
+    // work_important: header6.indexOf('V8'),
+    // health_state: header6.indexOf('V11'),
+    // proud_nationality: header6.indexOf('V211'),
+    // political_party: header6.indexOf('V29'),
     public variables: Array<VariableModel> =  [
-        new VariableModel('immigration', 'Immigration'),
+        new VariableModel('politicsImportant', 'Politics Important'),
         new VariableModel('religionImportance', 'Religion Importance'),
-        new VariableModel('lifeSatisfaction', 'Life Satisfaction'),
-        new VariableModel('financialSatisfaction', 'Financial Satisfaction'),
-        new VariableModel('trustInPeople', 'Trust in people'),
-        new VariableModel('education', 'Education'),
+        new VariableModel('familyImportant', 'Politics Important'),
+        new VariableModel('friendsImportant', 'Friends Important'),
+        new VariableModel('workImportant', 'Work Important'),
+        new VariableModel('proudNationality', 'Proud Nationality'),
         new VariableModel('healthState', 'Health State'),
-        new VariableModel('traditionHighTech', 'Tradition vs High Tech'),
+        new VariableModel('politicalParty', 'Political Party'),
     ]
 
     public selectCountry(country: CountryModel) {
