@@ -5,10 +5,11 @@
     height: 60px;
     border-radius: 30px;
     background-repeat: no-repeat;
-    background-size: cover;
     border: 1px solid lightgrey;
-
+    background-size: auto 100%;
+    background-position: 50%;
 }
+
 .country-details__right-pane {
 }
 .country-details__right-pane {

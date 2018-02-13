@@ -5,8 +5,12 @@ import {VariableModel} from "../../models/VariableModel";
 import {max, min} from "d3-array";
 import {observer} from "mobx-react";
 import {ConfigurationModel} from "../../models/Configuration";
+
 const SVG_WIDTH = 800;
-const SVG_HEIGHT = 400;
+const SVG_HEIGHT = 420;
+const MARGIN_BOTTOM = 20;
+const SVG_WORKING_HEIGHT = SVG_HEIGHT - MARGIN_BOTTOM;
+
 
 interface ParallelCoordChartProps {
     countries: Array<CountryModel>;
@@ -20,12 +24,14 @@ interface ParallelCoordChartState {
 
 @observer
 export class ParallelCoordChart extends React.Component<ParallelCoordChartProps, ParallelCoordChartState> {
-    private scales:  Map<string, any>;
-    constructor (props) {
+    private scales: Map<string, any>;
+
+    constructor(props) {
         super(props);
         this.scales = new Map(this.props.variables.map(variable => [variable.key, {scale: scaleLinear()}]) as ([string, any]))
     }
-    public recalculateScales () {
+
+    public recalculateScales() {
         for (let variableKey of Array.from(this.scales.keys())) {
             const allValues = this.props.countries.map(
                 country => country.statistics.getAggregatedValue(variableKey)
@@ -33,16 +39,18 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
             const newScale = this.scales.get(variableKey)
                 .scale
                 .domain([min(allValues), max(allValues)])
-                .range([0, SVG_HEIGHT])
+                .range([0, SVG_WORKING_HEIGHT])
             this.scales.set(variableKey, {
                 scale: newScale,
                 values: allValues
             })
         }
     }
+
     private pointsToString(points: Array<Array<number>>): string {
-        return points.reduce((string, [x,y]) => string + `${x}, ${y} `, '')
+        return points.reduce((string, [x, y]) => string + `${x}, ${y} `, '')
     }
+
     private onCountrySelect = (country: CountryModel) => {
 
     }
@@ -55,11 +63,17 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
                 linePadding += linePaddingOffset
                 const aggregatedValue = country.statistics.getAggregatedValue(variableKey)
                 points.push(
-                    [linePadding, SVG_HEIGHT - this.scales.get(variableKey).scale(aggregatedValue)]
+                    [linePadding, SVG_WORKING_HEIGHT - this.scales.get(variableKey).scale(aggregatedValue)]
                 )
             }
+            const isSelected = this.props.configuration.isCountrySelected(country)
+            const style = {
+                fill: 'none',
+                stroke: isSelected ? 'darkred' : 'darkgrey',
+                strokeWidth: isSelected ? 2 : 1
+            }
             return <polyline
-                style={{fill: 'none', stroke: this.props.configuration.isCountrySelected(country) ? 'darkred' : 'darkgrey', strokeWidth:1}}
+                style={style}
                 key={`polyline-${country.code}`}
                 onClick={() => this.onCountrySelect(country)}
                 points={this.pointsToString(points)}
@@ -81,14 +95,20 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
                         x1={linePadding}
                         x2={linePadding}
                         y1={0}
-                        style={{strokeWidth: 2, stroke: "black"}}
-                        y2={SVG_HEIGHT}
+                        style={{strokeWidth: 1, stroke: "#696969"}}
+                        y2={SVG_WORKING_HEIGHT}
                     />
-                    { values.map(value => <circle
+                    <text x={linePadding}
+                          y={SVG_WORKING_HEIGHT + 20}
+                          textAnchor="middle"
+                          alignmentBaseline="central">
+                        {variableKey}
+                    </text>
+                    {values.map(value => <circle
                         cx={linePadding}
-                        cy={SVG_HEIGHT - scale(value)}
-                        r={3}
-                        style={{strokeWidth: 2, stroke: "black"}}
+                        cy={SVG_WORKING_HEIGHT - scale(value)}
+                        r={2}
+                        style={{strokeWidth: 2, stroke: "#696969"}}
                     />)}
                 </g>
             )
@@ -96,9 +116,7 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
         return result
     }
 
-    componentDidUpdate() {
-    }
-    public render () {
+    public render() {
         this.recalculateScales()
         return (
             <div>

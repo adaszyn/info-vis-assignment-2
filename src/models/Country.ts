@@ -1,8 +1,8 @@
 import {observable} from "mobx";
 import axios from 'axios'
-import * as wave4statistics from '../data/wave4.output.json'
-import * as wave5statistics from '../data/wave5.output.json'
-import * as wave6statistics from '../data/wave6.output.json'
+import * as wave4statistics from '../data/wave4.final.json'
+import * as wave5statistics from '../data/wave5.final.json'
+import * as wave6statistics from '../data/wave6.final.json'
 import {Statistics, StatisticsModel} from "./StatisticsModel";
 
 export interface Country {

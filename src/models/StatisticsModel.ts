@@ -1,16 +1,6 @@
 export type CategoricalData<T> = Map<string, T>;
 export type CategoricalNumeralValues = CategoricalData<number>;
 
-    //
-    // religion_importance: header6.indexOf('V9'),
-    // familyImportant: header6.indexOf('V4'),
-    // friends_important: header6.indexOf('V5'),
-    // politics_important: header6.indexOf('V7'),
-    // work_important: header6.indexOf('V8'),
-    // health_state: header6.indexOf('V11'),
-    // proud_nationality: header6.indexOf('V211'),
-    // political_party: header6.indexOf('V29'),
-
 export interface Statistics {
     religionImportance: CategoricalData<number>
     familyImportant: CategoricalData<number>;
@@ -20,6 +10,9 @@ export interface Statistics {
     healthState: CategoricalData<number>;
     proudNationality: CategoricalData<number>;
     politicalParty: CategoricalData<number>;
+    populationGrowth: number;
+    populationDensity: number
+    lifeExpectancy: number;
 }
 
 export class StatisticsModel implements Statistics {
@@ -31,6 +24,9 @@ export class StatisticsModel implements Statistics {
     healthState: CategoricalData<number>;
     proudNationality: CategoricalData<number>;
     politicalParty: CategoricalData<number>;
+    populationGrowth: number;
+    populationDensity: number;
+    lifeExpectancy: number;
 
     constructor(statisticsObject: any) {
         if (!statisticsObject) {
@@ -43,15 +39,27 @@ export class StatisticsModel implements Statistics {
         this.workImportant = this.objectToMap(statisticsObject['work_important'])
         this.politicalParty = this.objectToMap(statisticsObject['political_party'])
         this.proudNationality = this.objectToMap(statisticsObject['proud_nationality'])
-        this.healthState = this.objectToMap(statisticsObject['health_state'])
+        this.healthState = this.objectToMap(statisticsObject['health_state']);
+        this.populationGrowth = statisticsObject['population_growth'];
+        this.populationDensity = statisticsObject['population_density'];
+        this.lifeExpectancy = statisticsObject['life_expectancy'];
     }
 
     private objectToMap(object: any):Map<string, any> {
+        if (!object) {
+            return new Map([]);
+        }
         return new Map(<[string, any]>Object.keys(object).map(key => [key, object[key]]))
     }
 
     public getAggregatedValue (key:string):number {
         const data:CategoricalNumeralValues = <any>this[key];
+        if (!data) {
+            return null;
+        }
+        if (typeof data === 'number') {
+            return data;
+        }
         let sum: number = 0;
         let numOfEntries: number = 0;
         for (const label of Array.from(data.keys())) {

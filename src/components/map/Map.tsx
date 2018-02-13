@@ -7,6 +7,8 @@ import './Map.css'
 import {ReactElement} from "react";
 import { scaleLinear } from 'd3'
 import {min, max} from "d3-array";
+import {toJS} from "mobx";
+import {scaleLog} from "d3-scale";
 
 interface MapProps {
     countries: Array<CountryModel>;
@@ -14,6 +16,7 @@ interface MapProps {
     countriesWithStatisticsCodes: Set<string>;
 }
 
+const isNumber = val => typeof val === 'number';
 @observer
 export class Map extends React.Component<MapProps, any> {
     private chromaticScale;
@@ -43,6 +46,8 @@ export class Map extends React.Component<MapProps, any> {
         }
         const allValues = this.props.countries
             .map(country => country.statistics.getAggregatedValue(selectedVariable.key))
+            .filter(isNumber)
+        console.log('all values', toJS(allValues));
         this.chromaticScale = this.chromaticScale
             .domain([min(allValues), max(allValues)])
             .range([0.05, 1.0])
@@ -59,6 +64,10 @@ export class Map extends React.Component<MapProps, any> {
             return "lightgrey"
         }
         const aggregatedValue = country.statistics.getAggregatedValue(selectedVariable.key)
+        if (!aggregatedValue) {
+            return "lightgrey"
+        }
+        console.log(aggregatedValue, this.chromaticScale(aggregatedValue));
         return `rgba(255, 0, 0, ${this.chromaticScale(aggregatedValue)})`;
     }
 

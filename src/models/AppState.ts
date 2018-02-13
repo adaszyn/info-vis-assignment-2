@@ -2,9 +2,9 @@ import {observable} from "mobx";
 import {Country, CountryModel, Wave} from "./Country";
 import {ConfigurationModel} from "./Configuration";
 import {AllCountriesList} from "../contants/Countries";
-import * as wave4statistics from '../data/wave4.output.json'
-import * as wave5statistics from '../data/wave5.output.json'
-import * as wave6statistics from '../data/wave6.output.json'
+import * as wave4statistics from '../data/wave4.final.json'
+import * as wave5statistics from '../data/wave5.final.json'
+import * as wave6statistics from '../data/wave6.final.json'
 
 export class AppState {
     @observable countries: Array<CountryModel> = [];

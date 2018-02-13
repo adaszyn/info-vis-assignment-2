@@ -25,7 +25,7 @@ export class App extends React.Component<{state: AppState}, {}> {
                          countries={this.props.state.countries}/>
                     <VariablesSelection  configuration={this.props.state.configuration}
                                          onWaveChange={this.onWaveSelect}
-                                         variables={this.props.state.configuration.variables}/>
+                                         variables={this.props.state.configuration.allVariables}/>
 
                 </div>
                 <div className='right-pane'>
@@ -33,7 +33,7 @@ export class App extends React.Component<{state: AppState}, {}> {
                         onCountrySelect={this.onCountrySelect}
                         countries={this.props.state.countries}
                         configuration={this.props.state.configuration}
-                        variables={this.props.state.configuration.variables}
+                        variables={this.props.state.configuration.distributionVariables}
                     />
                 </div>
                 <div className='bottom-pane'>

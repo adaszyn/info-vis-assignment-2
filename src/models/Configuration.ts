@@ -9,7 +9,7 @@ export class ConfigurationModel {
     public selectedVariable: VariableModel;
     @observable selectedWave: Wave;
 
-    public variables: Array<VariableModel> =  [
+    public distributionVariables: Array<VariableModel> =  [
         new VariableModel('politicsImportant', 'Politics Important'),
         new VariableModel('religionImportance', 'Religion Importance'),
         new VariableModel('familyImportant', 'Politics Important'),
@@ -18,6 +18,15 @@ export class ConfigurationModel {
         new VariableModel('proudNationality', 'Proud Nationality'),
         new VariableModel('healthState', 'Health State'),
         new VariableModel('politicalParty', 'Political Party'),
+    ]
+    public numericalVariables: Array<VariableModel> = [
+        new VariableModel('populationGrowth', 'Population Growth'),
+        new VariableModel('populationDensity', 'Population Density'),
+        new VariableModel('lifeExpectancy', 'Life Expectancy'),
+    ]
+    public allVariables: Array<VariableModel> = [
+        ...this.distributionVariables,
+        ...this.numericalVariables,
     ]
 
     public selectCountry(country: CountryModel) {
