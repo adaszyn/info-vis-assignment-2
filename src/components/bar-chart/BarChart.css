@@ -2,6 +2,14 @@
     display: flex;
     flex-direction: column;
 }
+.no-data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 340px;
+    min-height: 220px;
+}
 .bar-graph {
 
 }

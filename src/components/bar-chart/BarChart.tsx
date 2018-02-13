@@ -112,6 +112,11 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
         </g>
     }
     public render () {
+        if (this.props.data.size === 0) {
+            return <div className="no-data-container">
+                NO DATA :(
+            </div>
+        }
         return (
             <div className="graph-container">
                 <svg className='bar-graph' height={SVG_HEIGHT} width={SVG_WIDTH}>
