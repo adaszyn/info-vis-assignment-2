@@ -24,14 +24,21 @@ export class Map extends React.Component<MapProps, any> {
         super(props);
         this.chromaticScale = scaleLinear()
     }
-    private onCountryClick = ({target: {id}}) => {
+    private onCountryClick = (event) => {
+        const {target: {id}} = event;
         if (!this.doesDataExistForCountry(id)) {
             return;
         }
         const [country] = this.props.countries.filter(country => country.code === id)
         country.fetchDescription()
         this.props.configuration.selectedVariable = null;
-        this.props.configuration.toggleCountry(country)
+        if (event.ctrlKey) {
+            this.props.configuration.toggleCountry(country)
+        }
+        else {
+            this.props.configuration.unselectAllCountries()
+            this.props.configuration.selectCountry(country)
+        }
 
     }
 

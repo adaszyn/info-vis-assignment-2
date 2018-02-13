@@ -44,6 +44,10 @@ export class ConfigurationModel {
         this.selectedCountries.splice(index, 1)
     }
 
+    public unselectAllCountries() {
+        this.selectedCountries = [];
+    }
+
     public getSelectedCountries(): Array<Country> {
         return this.selectedCountries
     }
