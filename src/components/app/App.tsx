@@ -33,7 +33,7 @@ export class App extends React.Component<{state: AppState}, {}> {
                         onCountrySelect={this.onCountrySelect}
                         countries={this.props.state.countries}
                         configuration={this.props.state.configuration}
-                        variables={this.props.state.configuration.distributionVariables}
+                        variables={this.props.state.configuration.allVariables}
                     />
                 </div>
                 <div className='bottom-pane'>

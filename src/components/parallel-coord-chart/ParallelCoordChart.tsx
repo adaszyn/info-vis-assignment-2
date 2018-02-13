@@ -8,7 +8,7 @@ import {ConfigurationModel} from "../../models/Configuration";
 
 const SVG_WIDTH = 800;
 const SVG_HEIGHT = 420;
-const MARGIN_BOTTOM = 20;
+const MARGIN_BOTTOM = 80;
 const SVG_WORKING_HEIGHT = SVG_HEIGHT - MARGIN_BOTTOM;
 
 
@@ -81,6 +81,9 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
         })
 
     }
+    getVariableLabelByKey = (key: string):string => {
+        return this.props.variables.find(variable => variable.key === key).label
+    }
     renderAxes = () => {
         const result = []
         const linePaddingOffset = SVG_WIDTH / (this.scales.size + 1)
@@ -89,6 +92,7 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
             linePadding += linePaddingOffset
             const values = this.scales.get(variableKey).values
             const scale = this.scales.get(variableKey).scale
+            console.log(`${linePadding} ${SVG_WORKING_HEIGHT + 20}`);
             result.push(
                 <g key={`line-${variableKey}`}>
                     <line
@@ -100,9 +104,11 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
                     />
                     <text x={linePadding}
                           y={SVG_WORKING_HEIGHT + 20}
+                          style={{transform: "rotate(70deg)", transformOrigin: `${linePadding}px ${SVG_WORKING_HEIGHT}px`}}
                           textAnchor="middle"
-                          alignmentBaseline="central">
-                        {variableKey}
+                          alignmentBaseline="central"
+                    >
+                        {this.getVariableLabelByKey(variableKey)}
                     </text>
                     {values.map(value => <circle
                         cx={linePadding}
