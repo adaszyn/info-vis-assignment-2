@@ -15,3 +15,17 @@
 .country-details__right-pane {
 
 }
+.country-details__box {
+    padding: 0 50px;
+    display: flex;
+    margin: auto;
+    max-width: 680px;
+    font-family: 'Karla', sans-serif;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
+    border-top: 1px solid lightgrey;
+    align-items: center;
+}
+.country-details__box > ul {
+    list-style: square;
+}

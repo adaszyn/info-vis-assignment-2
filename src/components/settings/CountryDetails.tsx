@@ -2,6 +2,8 @@ import * as React from 'react'
 import {ConfigurationModel} from "../../models/Configuration";
 import {observer} from "mobx-react";
 import {Graphs} from "../graphs/Graphs";
+import * as numeral from 'numeral';
+
 import "./CountryDetails.css"
 
 interface VariablesSelectionProps {
@@ -19,17 +21,25 @@ export class CountryDetails extends React.Component<VariablesSelectionProps, any
         const flagStyle = {
             backgroundImage: `url(${selectedCountry.flagUrl})`
         }
+        const {population, name, area, currency} = selectedCountry;
+        const formattedArea = numeral(area).format('0,0,0')
+        const formattedPopulation = numeral(population).format('0,0,0')
         return (
             <div className="country-details">
-                <h2>
-                    {selectedCountry.name}
+                <div className="country-details__box">
+
+                    <h2>
+                        {name}
+                    </h2>
+
+                    <ul>
+                        <li>{formattedPopulation} inhabitants</li>
+                        <li>{formattedArea} km²</li>
+                        <li>{currency}</li>
+                    </ul>
                     <div className="country-flag" style={flagStyle}/>
-                </h2>
-                <ul>
-                    <li>{selectedCountry.population} inhabitants</li>
-                    <li>{selectedCountry.area} km²</li>
-                    <li>{selectedCountry.currency}</li>
-                </ul>
+                </div>
+
                 <div className="country-details__right-pane">
                 </div>
                 <Graphs data={selectedCountry.statistics}/>
