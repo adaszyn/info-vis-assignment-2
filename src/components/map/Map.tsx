@@ -6,7 +6,7 @@ import {countriesPaths} from "./CountriesPaths";
 import './Map.css'
 import {ReactElement} from "react";
 import { scaleLinear } from 'd3'
-import {min, max} from "d3-array";
+import {min, max, range} from "d3-array";
 import {toJS} from "mobx";
 import {scaleLog} from "d3-scale";
 
@@ -20,6 +20,7 @@ const isNumber = val => typeof val === 'number';
 @observer
 export class Map extends React.Component<MapProps, any> {
     private chromaticScale;
+    private scaleSteps: Array<number> = [];
     constructor(props) {
         super(props);
         this.chromaticScale = scaleLinear()
@@ -55,9 +56,12 @@ export class Map extends React.Component<MapProps, any> {
             .map(country => country.statistics.getAggregatedValue(selectedVariable.key))
             .filter(isNumber)
         console.log('all values', toJS(allValues));
+        const minValue = min(allValues)
+        const maxValue = max(allValues)
         this.chromaticScale = this.chromaticScale
-            .domain([min(allValues), max(allValues)])
+            .domain([minValue, maxValue])
             .range([0.05, 1.0])
+        this.scaleSteps = range(minValue, maxValue, (maxValue - minValue) / 10)
     }
 
     public componentWillReact(props) {
@@ -74,7 +78,6 @@ export class Map extends React.Component<MapProps, any> {
         if (!aggregatedValue) {
             return "lightgrey"
         }
-        console.log(aggregatedValue, this.chromaticScale(aggregatedValue));
         return `rgba(255, 0, 0, ${this.chromaticScale(aggregatedValue)})`;
     }
 
@@ -131,7 +134,17 @@ export class Map extends React.Component<MapProps, any> {
                         {this.getStyledCountries()}
                     </g>
                 </svg>
-
+                <div className="map-scale">
+                    {this.scaleSteps.map(value => {
+                        return <div className="map-scale__block"
+                                 style={{
+                                     backgroundColor: `rgba(255, 0, 0, ${this.chromaticScale(value)})`
+                                 }}
+                            >
+                                {Math.floor(value * 100) / 100}
+                        </div>
+                    })}
+                </div>
             </div>
         )
     }
