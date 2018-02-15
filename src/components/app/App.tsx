@@ -8,6 +8,7 @@ import DevTools from "mobx-react-devtools";
 import './App.css'
 import {VariablesSelection} from "../settings/VariablesSelection";
 import {ParallelCoordChart} from "../parallel-coord-chart/ParallelCoordChart";
+import {AboutView} from "../about/AboutView";
 @observer
 export class App extends React.Component<{state: AppState}, {}> {
     private onCountrySelect = (country: CountryModel) => {
@@ -45,6 +46,7 @@ export class App extends React.Component<{state: AppState}, {}> {
                     <CountryDetails configuration={this.props.state.configuration} />
 
                 </div>
+                <AboutView />
                 <DevTools />
             </div>
         );

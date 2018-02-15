@@ -114,7 +114,6 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
     public render () {
         if (this.props.data.size === 0) {
             return <div className="no-data-container">
-                NO DATA :(
             </div>
         }
         return (
