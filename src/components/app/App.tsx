@@ -4,7 +4,7 @@ import {Country, CountryModel, Wave} from "../../models/Country";
 import {AppState} from "../../models/AppState";
 import {Map} from "../map/Map";
 import {CountryDetails} from "../settings/CountryDetails";
-import DevTools from "mobx-react-devtools";
+// import DevTools from "mobx-react-devtools";
 import './App.css'
 import {VariablesSelection} from "../settings/VariablesSelection";
 import {ParallelCoordChart} from "../parallel-coord-chart/ParallelCoordChart";
@@ -85,7 +85,7 @@ export class App extends React.Component<{ state: AppState }, {}> {
 
                 </div>
                 <AboutView/>
-                <DevTools/>
+                {/*<DevTools/>*/}
             </div>
         );
     }
