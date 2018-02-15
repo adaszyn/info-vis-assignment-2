@@ -55,7 +55,6 @@ export class Map extends React.Component<MapProps, any> {
         const allValues = this.props.countries
             .map(country => country.statistics.getAggregatedValue(selectedVariable.key))
             .filter(isNumber)
-        console.log('all values', toJS(allValues));
         const minValue = min(allValues)
         const maxValue = max(allValues)
         this.chromaticScale = this.chromaticScale
@@ -100,6 +99,7 @@ export class Map extends React.Component<MapProps, any> {
             const hasData = this.doesDataExistForCountry(country.props.id);
             return {
                 ...country,
+                key: country.props.id,
                 props: {
                     ...country.props,
                     onClick: this.onCountryClick,
@@ -140,6 +140,7 @@ export class Map extends React.Component<MapProps, any> {
                                  style={{
                                      backgroundColor: `rgba(255, 0, 0, ${this.chromaticScale(value)})`
                                  }}
+                                    key={value}
                             >
                                 {Math.floor(value * 100) / 100}
                         </div>

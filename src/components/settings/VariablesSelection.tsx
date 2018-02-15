@@ -33,6 +33,7 @@ export class VariablesSelection extends React.Component<VariablesSelectionProps,
             ? 'button selected'
             : 'button'
         return <div className={className}
+                    key={`variable-${variable.key}`}
                     onClick={() => this.props.configuration.selectedVariable = variable}>
             { variable.label }
         </div>

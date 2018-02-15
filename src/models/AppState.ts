@@ -23,7 +23,6 @@ export class AppState {
         this.configuration.selectedCountries = [];
         const countriesWithStatistics = AllCountriesList
             .filter(this.isInStatisticsModel)
-        console.log(countriesWithStatistics);
         this.countries = countriesWithStatistics
             .map(countryEntry => {
                 return new CountryModel(countryEntry, this.configuration.selectedWave)

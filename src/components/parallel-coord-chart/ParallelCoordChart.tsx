@@ -35,7 +35,7 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
         for (let variableKey of Array.from(this.scales.keys())) {
             const allValues = this.props.countries.map(
                 country => country.statistics.getAggregatedValue(variableKey)
-            )
+            ).filter(id => !!id)
             const newScale = this.scales.get(variableKey)
                 .scale
                 .domain([min(allValues), max(allValues)])
@@ -92,7 +92,6 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
             linePadding += linePaddingOffset
             const values = this.scales.get(variableKey).values
             const scale = this.scales.get(variableKey).scale
-            console.log(`${linePadding} ${SVG_WORKING_HEIGHT + 20}`);
             result.push(
                 <g key={`line-${variableKey}`}>
                     <line

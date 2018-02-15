@@ -29,9 +29,6 @@ export class StatisticsModel implements Statistics {
     lifeExpectancy: number;
 
     constructor(statisticsObject: any) {
-        if (!statisticsObject) {
-            console.log(statisticsObject);
-        }
         this.religionImportance = this.objectToMap(statisticsObject['religion_importance'])
         this.familyImportant = this.objectToMap(statisticsObject['family_important'])
         this.friendsImportant = this.objectToMap(statisticsObject['friends_important'])

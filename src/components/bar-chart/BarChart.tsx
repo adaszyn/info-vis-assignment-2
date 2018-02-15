@@ -54,7 +54,7 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
         this.adjustBarWidth(newProps)
     }
     renderBar = ([label,value]: [string, number], index: number) => {
-        return <g>
+        return <g key={`bar-${label}-${value}`}>
             <rect
                 height={this.scale(value)}
                 width={this.barWidth}
@@ -93,7 +93,7 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
             />
             {steps.map((step) => {
 
-                return <g>
+                return <g key={`step-${step}`}>
                     <line
                         x1={0}
                         x2={SVG_WORKING_WIDTH}
