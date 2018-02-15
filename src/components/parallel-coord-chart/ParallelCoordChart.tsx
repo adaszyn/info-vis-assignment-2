@@ -5,7 +5,7 @@ import {VariableModel} from "../../models/VariableModel";
 import {max, min} from "d3-array";
 import {observer} from "mobx-react";
 import {ConfigurationModel} from "../../models/Configuration";
-
+import "./ParallelCoordChart.css"
 const SVG_WIDTH = 800;
 const SVG_HEIGHT = 420;
 const MARGIN_BOTTOM = 80;
@@ -124,7 +124,7 @@ export class ParallelCoordChart extends React.Component<ParallelCoordChartProps,
     public render() {
         this.recalculateScales()
         return (
-            <div>
+            <div className="parallel-coord-chart-container">
                 <svg className="parallel-coord-chart" preserveAspectRatio="xMinYMin meet"
                      width={SVG_WIDTH}
                      height={SVG_HEIGHT}

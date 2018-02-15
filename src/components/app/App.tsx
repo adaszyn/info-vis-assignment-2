@@ -19,7 +19,12 @@ export class App extends React.Component<{state: AppState}, {}> {
     render() {
         return (
             <div className='container'>
-                <div className='left-pane'>
+                <header className="header">
+                    <h1>Europe Statistics</h1>
+                    <h3>Based of WVS and Gapminder data</h3>
+                </header>
+                <hr/>
+                <div>
                     <Map configuration={this.props.state.configuration}
                          countriesWithStatisticsCodes={this.props.state.countriesWithStatisticsCodes}
                          countries={this.props.state.countries}/>
@@ -28,7 +33,7 @@ export class App extends React.Component<{state: AppState}, {}> {
                                          variables={this.props.state.configuration.allVariables}/>
 
                 </div>
-                <div className='right-pane'>
+                <div>
                     <ParallelCoordChart
                         onCountrySelect={this.onCountrySelect}
                         countries={this.props.state.countries}
@@ -36,7 +41,7 @@ export class App extends React.Component<{state: AppState}, {}> {
                         variables={this.props.state.configuration.allVariables}
                     />
                 </div>
-                <div className='bottom-pane'>
+                <div>
                     <CountryDetails configuration={this.props.state.configuration} />
 
                 </div>
