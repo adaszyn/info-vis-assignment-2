@@ -9,7 +9,7 @@ const BAR_PADDING = 10;
 const SVG_HEIGHT = 220;
 const SVG_WIDTH = 340;
 const SVG_LABEL_MARGIN = 40;
-const TOP_MARGIN = 20;
+const TOP_MARGIN = 40;
 const BOTTOM_PADDING = 40;
 const MAX_BAR_WIDTH = 40;
 

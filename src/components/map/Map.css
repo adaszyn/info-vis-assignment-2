@@ -3,7 +3,7 @@
 }
 .map-container > svg {
     width: 100%;
-    height: 90%;
+    height: calc(100% - 70px);
 }
 .map-image {
     width: 100%;

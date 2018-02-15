@@ -13,7 +13,7 @@ export class CountryDetails extends React.Component<VariablesSelectionProps, any
     public render() {
         const selectedCountries = this.props.configuration.selectedCountries
         if (selectedCountries.length !== 1) {
-            return "Select one country to see more details";
+            return <h2>Select one country to see more details.</h2>;
         }
         const selectedCountry = selectedCountries[0];
         const flagStyle = {
